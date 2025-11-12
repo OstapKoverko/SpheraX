@@ -8,8 +8,8 @@ export class ModalEarlyBird {
   private emailTextboxLocator;
   private ideasTextboxLocator;
   private notRobotCheckboxLocator;
-  private sendButtonLocator;
-  private successHeadingLocator;
+  public sendButtonLocator;
+  public successHeadingLocator;
 
   constructor(page: Page) {
     this.page = page;
@@ -27,17 +27,11 @@ export class ModalEarlyBird {
     await expect(this.earlyContactTextLocator).toBeVisible();
   }
 
-  async sendContactInfo(name: string, companyName: string, email: string, ideas: string) {
+  async fillContactInfo(name: string, companyName: string, email: string, ideas: string) {
     await this.nameTextboxLocator.fill(name);
     await this.companyNameTextboxLocator.fill(companyName);
     await this.emailTextboxLocator.fill(email);
     await this.ideasTextboxLocator.fill(ideas);
     await this.notRobotCheckboxLocator.click();
-
-    // We should disable captcha in the test environment to automate this step
-
-    // await this.sendButtonLocator.click();
-
-    // await expect(this.successHeadingLocator).toBeVisible();
   }
 }

@@ -31,13 +31,31 @@ test.describe('Home Page Tests', () => {
     await homePage.openEarlyBirdModal();
     await homePage.modalEarlyBird.waitForEarlyContactText();
 
-    await homePage.modalEarlyBird.sendContactInfo(
+    await homePage.modalEarlyBird.fillContactInfo(
       earlyContactData.name,
       earlyContactData.companyName,
       earlyContactData.email,
       earlyContactData.ideas,
     );
 
-    // some additional check after sending contact info
+    // We should disable captcha in the test environment to automate this step
+
+    // await homePage.modalEarlyBird.sendButtonLocator.click();
+
+    // await expect(homePage.modalEarlyBird.successHeadingLocator).toBeVisible();
+  });
+
+  test('Check Early Bird modal with invalid email', async ({ homePage }) => {
+    await homePage.openEarlyBirdModal();
+    await homePage.modalEarlyBird.waitForEarlyContactText();
+
+    await homePage.modalEarlyBird.fillContactInfo(
+      earlyContactData.name,
+      earlyContactData.companyName,
+      'invalidEmailFormat@.com',
+      earlyContactData.ideas,
+    );
+
+    await expect(homePage.modalEarlyBird.sendButtonLocator).toBeDisabled();
   });
 });
